@@ -9,13 +9,11 @@
     "servicePath": "/home/runner/KonnichiwaDisplay-6",
     "serviceConfigFileName": "serverless.yml",
     "service": {
-      "service": "hello-api",
-      "frameworkVersion": "3",
+      "service": "konnichiwa-api",
       "provider": {
         "name": "aws",
-        "runtime": "nodejs20.x",
-        "region": "us-east-1",
-        "stage": "dev"
+        "runtime": "nodejs18.x",
+        "region": "ap-northeast-1"
       },
       "functions": {
         "hello": {
@@ -23,24 +21,16 @@
           "events": [
             {
               "http": {
-                "path": "hello",
+                "path": "/hello",
                 "method": "get",
                 "cors": true
               }
             }
           ]
         }
-      },
-      "plugins": [
-        "serverless-typescript"
-      ],
-      "custom": {
-        "typescript": {
-          "srcDir": "src/lambda"
-        }
       }
     },
-    "serviceRawFile": "service: hello-api\n\nframeworkVersion: '3'\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n  region: us-east-1\n  stage: dev\n\nfunctions:\n  hello:\n    handler: src/lambda/hello.handler\n    events:\n      - http:\n          path: hello\n          method: get\n          cors: true\n\nplugins:\n  - serverless-typescript\n\ncustom:\n  typescript:\n    srcDir: src/lambda\n",
+    "serviceRawFile": "service: konnichiwa-api\n\nprovider:\n  name: aws\n  runtime: nodejs18.x\n  region: ap-northeast-1\n\nfunctions:\n  hello:\n    handler: src/lambda/hello.handler\n    events:\n      - http:\n          path: /hello\n          method: get\n          cors: true\n",
     "command": [
       "deploy"
     ],
