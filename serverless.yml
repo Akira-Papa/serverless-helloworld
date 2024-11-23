@@ -1,0 +1,25 @@
+service: hello-api
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  stage: dev
+
+functions:
+  hello:
+    handler: src/lambda/hello.handler
+    events:
+      - http:
+          path: hello
+          method: get
+          cors: true
+
+plugins:
+  - serverless-typescript
+
+custom:
+  typescript:
+    srcDir: src/lambda
