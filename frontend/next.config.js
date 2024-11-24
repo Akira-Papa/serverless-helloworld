@@ -10,6 +10,11 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  experimental: {
+    serverActions: {
+      enabled: true
+    },
+  },
 };
 
 module.exports = nextConfig;

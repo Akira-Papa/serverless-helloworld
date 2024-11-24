@@ -35,8 +35,8 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npx next dev"
-waitForPort = 3000
+args = "cd frontend && PORT=3001 npm run dev"
+waitForPort = 3001
 
 [[workflows.workflow]]
 name = "Deploy Backend"
@@ -67,8 +67,12 @@ task = "shell.exec"
 args = "cd frontend && S3_BUCKET=hello-api-frontend-dev npm run build && S3_BUCKET=hello-api-frontend-dev node deploy.js"
 
 [deployment]
-run = ["sh", "-c", "npx next dev"]
+run = ["sh", "-c", "cd frontend && PORT=3001 npm run dev"]
 
 [[ports]]
 localPort = 3000
 externalPort = 80
+
+[[ports]]
+localPort = 3001
+externalPort = 3001
