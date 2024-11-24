@@ -9,7 +9,7 @@ export default function Home() {
   useEffect(() => {
     const fetchMessage = async () => {
       try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api/hello';
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://e0wq7990z1.execute-api.ap-northeast-1.amazonaws.com/dev/hello';
         const response = await fetch(API_URL);
         const data = await response.json();
         setMessage(data.message);
