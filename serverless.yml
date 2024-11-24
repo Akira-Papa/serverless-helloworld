@@ -1,0 +1,26 @@
+service: hello-api
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-northeast-1
+  stage: dev
+
+package:
+  patterns:
+    - '!./**'
+    - 'handler.js'
+    - '!node_modules/**'
+    - '!src/**'
+    - '!bin/**'
+    - '!lib/**'
+    - '!.next/**'
+    - '!cdk.out/**'
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: hello
+          method: get

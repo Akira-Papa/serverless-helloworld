@@ -1,0 +1,50 @@
+{
+  "/home/runner/KonnichiwaDisplay-6": {
+    "versionSfCore": null,
+    "versionFramework": "4.4.11",
+    "isWithinCompose": false,
+    "isCompose": false,
+    "composeOrgName": null,
+    "composeServiceName": null,
+    "servicePath": "/home/runner/KonnichiwaDisplay-6",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "service": "hello-api",
+      "provider": {
+        "name": "aws",
+        "runtime": "nodejs20.x",
+        "region": "ap-northeast-1",
+        "stage": "dev"
+      },
+      "functions": {
+        "hello": {
+          "handler": "handler.hello",
+          "events": [
+            {
+              "http": {
+                "path": "hello",
+                "method": "get"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "serviceRawFile": "service: hello-api\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n  region: ap-northeast-1\n  stage: dev\n\nfunctions:\n  hello:\n    handler: handler.hello\n    events:\n      - http:\n          path: hello\n          method: get\n",
+    "command": [
+      "deploy"
+    ],
+    "options": {},
+    "error": {
+      "message": "You must sign in or use a license key with Serverless Framework V.4 and later versions. Please use \"serverless login\".",
+      "stack": "Error: You must sign in or use a license key with Serverless Framework V.4 and later versions. Please use \"serverless login\".\n    at Authentication.getAuthenticatedData (file:///home/runner/.serverless/releases/4.4.11/package/dist/sf-core.js:686:10532)\n    at async Authentication.resolverAuthenticate (file:///home/runner/.serverless/releases/4.4.11/package/dist/sf-core.js:688:20538)\n    at async _Meta.authenticate (file:///home/runner/.serverless/releases/4.4.11/package/dist/sf-core.js:696:12559)\n    at async _Meta.authenticateAndResolve (file:///home/runner/.serverless/releases/4.4.11/package/dist/sf-core.js:696:11588)\n    at async route (file:///home/runner/.serverless/releases/4.4.11/package/dist/sf-core.js:1010:14697)\n    at async Object.run2 [as run] (file:///home/runner/.serverless/releases/4.4.11/package/dist/sf-core.js:1010:15182)\n    at async run3 (file:///home/runner/.serverless/releases/4.4.11/package/dist/sf-core.js:1010:16442)"
+    },
+    "machineId": "ce34c05ba71b7f78e8567241035a77f7",
+    "stage": "dev",
+    "serviceProviderAwsCfStackId": null,
+    "serviceProviderAwsCfStackCreated": null,
+    "serviceProviderAwsCfStackUpdated": null,
+    "serviceProviderAwsCfStackStatus": null,
+    "serviceProviderAwsCfStackOutputs": null
+  }
+}
