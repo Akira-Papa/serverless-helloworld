@@ -1,0 +1,23 @@
+# Caches
+*.cacache
+
+# Logs
+*.log
+
+# Node Modules
+node_modules/
+
+# Build
+build/
+
+# Dependency directories
+jspm_packages/
+
+# dotenv environment variables file
+.env
+
+# macOS hidden files
+.DS_Store
+
+# Vim temporary files
+*.swp
