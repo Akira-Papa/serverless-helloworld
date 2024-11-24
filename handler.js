@@ -8,7 +8,7 @@ module.exports.hello = async (event) => {
       'Access-Control-Allow-Origin': '*'
     },
     body: JSON.stringify({
-      message: 'こんにちは'
+      message: 'こんばんは'
     })
   };
 };

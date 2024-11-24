@@ -162,7 +162,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/hello-api/dev/1732407141233-2024-11-24T00:12:21.233Z/hello-api.zip"
+          "S3Key": "serverless/hello-api/dev/1732407407404-2024-11-24T00:16:47.404Z/hello-api.zip"
         },
         "Handler": "handler.hello",
         "Runtime": "nodejs20.x",
@@ -180,14 +180,14 @@
         "HelloLogGroup"
       ]
     },
-    "HelloLambdaVersionkrr7Q2exYqyK4r19pOypw0jfGBHQmXNLexqJWUGt0": {
+    "HelloLambdaVersionUFYSxpDHekeAk5bz5i15ReGngjvm3amM1cvcDcwJ8g": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "HelloLambdaFunction"
         },
-        "CodeSha256": "j2X2GJIitBOsMpELpzwC9bImooCIPUW91fhflyftd+M="
+        "CodeSha256": "aMQFSM4VnRAZD0amxnzQv+OjfxagSBWuhFXn9dQ8W64="
       }
     },
     "ApiGatewayRestApi": {
@@ -263,7 +263,7 @@
         "HelloLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1732407134623": {
+    "ApiGatewayDeployment1732407401008": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -325,7 +325,7 @@
     "HelloLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "HelloLambdaVersionkrr7Q2exYqyK4r19pOypw0jfGBHQmXNLexqJWUGt0"
+        "Ref": "HelloLambdaVersionUFYSxpDHekeAk5bz5i15ReGngjvm3amM1cvcDcwJ8g"
       },
       "Export": {
         "Name": "sls-hello-api-dev-HelloLambdaFunctionQualifiedArn"
