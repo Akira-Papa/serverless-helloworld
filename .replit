@@ -64,7 +64,7 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npx next build && aws s3 sync out/ s3://${self:service}-frontend-${self:provider.stage}"
+args = "cd frontend && S3_BUCKET=hello-api-frontend-dev npm run build && S3_BUCKET=hello-api-frontend-dev node deploy.js"
 
 [deployment]
 run = ["sh", "-c", "npx next dev"]

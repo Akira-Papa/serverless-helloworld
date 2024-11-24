@@ -1,0 +1,29 @@
+
+○  (Static)  prerendered as static content
+
+Traceback (most recent call last):
+  File "/nix/store/0chdzqdldzpxnrxlx3dznmv36c2c0qv7-awscli2-2.15.43/bin/.aws-wrapped", line 20, in <module>
+    import awscli.clidriver
+  File "/nix/store/0chdzqdldzpxnrxlx3dznmv36c2c0qv7-awscli2-2.15.43/lib/python3.11/site-packages/awscli/clidriver.py", line 21, in <module>
+    import botocore.session
+  File "/nix/store/0chdzqdldzpxnrxlx3dznmv36c2c0qv7-awscli2-2.15.43/lib/python3.11/site-packages/awscli/botocore/session.py", line 27, in <module>
+    import botocore.client
+  File "/nix/store/0chdzqdldzpxnrxlx3dznmv36c2c0qv7-awscli2-2.15.43/lib/python3.11/site-packages/awscli/botocore/client.py", line 16, in <module>
+    from botocore import UNSIGNED, waiter, xform_name
+  File "/nix/store/0chdzqdldzpxnrxlx3dznmv36c2c0qv7-awscli2-2.15.43/lib/python3.11/site-packages/awscli/botocore/waiter.py", line 17, in <module>
+    from botocore.docs.docstring import WaiterDocstring
+  File "/nix/store/0chdzqdldzpxnrxlx3dznmv36c2c0qv7-awscli2-2.15.43/lib/python3.11/site-packages/awscli/botocore/docs/__init__.py", line 15, in <module>
+    from botocore.docs.service import ServiceDocumenter
+  File "/nix/store/0chdzqdldzpxnrxlx3dznmv36c2c0qv7-awscli2-2.15.43/lib/python3.11/site-packages/awscli/botocore/docs/service.py", line 14, in <module>
+    from botocore.docs.client import ClientDocumenter, ClientExceptionsDocumenter
+  File "/nix/store/0chdzqdldzpxnrxlx3dznmv36c2c0qv7-awscli2-2.15.43/lib/python3.11/site-packages/awscli/botocore/docs/client.py", line 16, in <module>
+    from botocore.docs.example import ResponseExampleDocumenter
+  File "/nix/store/0chdzqdldzpxnrxlx3dznmv36c2c0qv7-awscli2-2.15.43/lib/python3.11/site-packages/awscli/botocore/docs/example.py", line 13, in <module>
+    from botocore.docs.shape import ShapeDocumenter
+  File "/nix/store/0chdzqdldzpxnrxlx3dznmv36c2c0qv7-awscli2-2.15.43/lib/python3.11/site-packages/awscli/botocore/docs/shape.py", line 19, in <module>
+    from botocore.utils import is_json_value_header
+  File "/nix/store/0chdzqdldzpxnrxlx3dznmv36c2c0qv7-awscli2-2.15.43/lib/python3.11/site-packages/awscli/botocore/utils.py", line 35, in <module>
+    import botocore.httpsession
+  File "/nix/store/0chdzqdldzpxnrxlx3dznmv36c2c0qv7-awscli2-2.15.43/lib/python3.11/site-packages/awscli/botocore/httpsession.py", line 21, in <module>
+    from urllib3.util.ssl_ import (
+ImportError: cannot import name 'DEFAULT_CIPHERS' from 'urllib3.util.ssl_' (/nix/store/2sd6mncv58k6065w8cf9b5pmagf2jc2f-python3.11-urllib3-2.2.1/lib/python3.11/site-packages/urllib3/util/ssl_.py)
