@@ -17,6 +17,9 @@ package:
     - '!.next/**'
     - '!cdk.out/**'
 
+custom:
+  s3Bucket: ${self:service}-frontend-${self:provider.stage}
+
 functions:
   hello:
     handler: handler.hello
@@ -24,3 +27,32 @@ functions:
       - http:
           path: hello
           method: get
+          cors: true
+
+resources:
+  Resources:
+    FrontendBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.s3Bucket}
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: false
+          BlockPublicPolicy: false
+          IgnorePublicAcls: false
+          RestrictPublicBuckets: false
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: 404.html
+
+    FrontendBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: !Ref FrontendBucket
+        PolicyDocument:
+          Statement:
+            - Sid: PublicReadGetObject
+              Effect: Allow
+              Principal: '*'
+              Action:
+                - s3:GetObject
+              Resource: !Join ['', ['arn:aws:s3:::', !Ref FrontendBucket, '/*']]

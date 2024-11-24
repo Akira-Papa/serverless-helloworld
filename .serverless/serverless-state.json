@@ -174,7 +174,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/hello-api/dev/1732407407404-2024-11-24T00:16:47.404Z/hello-api.zip"
+                "S3Key": "serverless/hello-api/dev/1732408949058-2024-11-24T00:42:29.058Z/hello-api.zip"
               },
               "Handler": "handler.hello",
               "Runtime": "nodejs20.x",
@@ -229,6 +229,51 @@
               }
             }
           },
+          "ApiGatewayMethodHelloOptions": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "AuthorizationType": "NONE",
+              "HttpMethod": "OPTIONS",
+              "MethodResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true,
+                    "method.response.header.Access-Control-Allow-Headers": true,
+                    "method.response.header.Access-Control-Allow-Methods": true
+                  },
+                  "ResponseModels": {}
+                }
+              ],
+              "RequestParameters": {},
+              "Integration": {
+                "Type": "MOCK",
+                "RequestTemplates": {
+                  "application/json": "{statusCode:200}"
+                },
+                "ContentHandling": "CONVERT_TO_TEXT",
+                "IntegrationResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'",
+                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
+                    },
+                    "ResponseTemplates": {
+                      "application/json": ""
+                    }
+                  }
+                ]
+              },
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceHello"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
           "ApiGatewayMethodHelloGet": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
@@ -275,7 +320,7 @@
               "HelloLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1732407401008": {
+          "ApiGatewayDeployment1732408934943": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -284,6 +329,7 @@
               "StageName": "dev"
             },
             "DependsOn": [
+              "ApiGatewayMethodHelloOptions",
               "ApiGatewayMethodHelloGet"
             ]
           },
@@ -320,6 +366,54 @@
                     },
                     "/*/*"
                   ]
+                ]
+              }
+            }
+          },
+          "FrontendBucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+              "BucketName": "hello-api-frontend-dev",
+              "PublicAccessBlockConfiguration": {
+                "BlockPublicAcls": false,
+                "BlockPublicPolicy": false,
+                "IgnorePublicAcls": false,
+                "RestrictPublicBuckets": false
+              },
+              "WebsiteConfiguration": {
+                "IndexDocument": "index.html",
+                "ErrorDocument": "404.html"
+              }
+            }
+          },
+          "FrontendBucketPolicy": {
+            "Type": "AWS::S3::BucketPolicy",
+            "Properties": {
+              "Bucket": {
+                "Ref": "FrontendBucket"
+              },
+              "PolicyDocument": {
+                "Statement": [
+                  {
+                    "Sid": "PublicReadGetObject",
+                    "Effect": "Allow",
+                    "Principal": "*",
+                    "Action": [
+                      "s3:GetObject"
+                    ],
+                    "Resource": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "FrontendBucket"
+                          },
+                          "/*"
+                        ]
+                      ]
+                    }
+                  }
                 ]
               }
             }
@@ -455,6 +549,9 @@
       },
       "vpc": {}
     },
+    "custom": {
+      "s3Bucket": "hello-api-frontend-dev"
+    },
     "pluginsData": {},
     "functions": {
       "hello": {
@@ -464,6 +561,23 @@
             "http": {
               "path": "hello",
               "method": "get",
+              "cors": {
+                "origin": "*",
+                "methods": [
+                  "OPTIONS",
+                  "GET"
+                ],
+                "headers": [
+                  "Content-Type",
+                  "X-Amz-Date",
+                  "Authorization",
+                  "X-Api-Key",
+                  "X-Amz-Security-Token",
+                  "X-Amz-User-Agent",
+                  "X-Amzn-Trace-Id"
+                ],
+                "allowCredentials": false
+              },
               "integration": "AWS_PROXY"
             }
           }
@@ -476,6 +590,59 @@
         "vpc": {},
         "versionLogicalId": "HelloLambdaVersionUFYSxpDHekeAk5bz5i15ReGngjvm3amM1cvcDcwJ8g"
       }
+    },
+    "resources": {
+      "Resources": {
+        "FrontendBucket": {
+          "Type": "AWS::S3::Bucket",
+          "Properties": {
+            "BucketName": "hello-api-frontend-dev",
+            "PublicAccessBlockConfiguration": {
+              "BlockPublicAcls": false,
+              "BlockPublicPolicy": false,
+              "IgnorePublicAcls": false,
+              "RestrictPublicBuckets": false
+            },
+            "WebsiteConfiguration": {
+              "IndexDocument": "index.html",
+              "ErrorDocument": "404.html"
+            }
+          }
+        },
+        "FrontendBucketPolicy": {
+          "Type": "AWS::S3::BucketPolicy",
+          "Properties": {
+            "Bucket": {
+              "Ref": "FrontendBucket"
+            },
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Sid": "PublicReadGetObject",
+                  "Effect": "Allow",
+                  "Principal": "*",
+                  "Action": [
+                    "s3:GetObject"
+                  ],
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:s3:::",
+                        {
+                          "Ref": "FrontendBucket"
+                        },
+                        "/*"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "Outputs": {}
     },
     "configValidationMode": "warn",
     "serviceFilename": "serverless.yml",
@@ -497,10 +664,16 @@
         ],
         "artifactsS3KeyDirname": "serverless/hello-api/dev/code-artifacts",
         "artifact": "/home/runner/KonnichiwaDisplay-6/.serverless/hello-api.zip",
-        "artifactDirectoryName": "serverless/hello-api/dev/1732407407404-2024-11-24T00:16:47.404Z"
+        "artifactDirectoryName": "serverless/hello-api/dev/1732408949058-2024-11-24T00:42:29.058Z"
+      },
+      "custom": {
+        "$ref": "$[\"service\"][\"custom\"]"
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
+      },
+      "resources": {
+        "$ref": "$[\"service\"][\"resources\"]"
       }
     },
     "layers": {},
@@ -508,7 +681,7 @@
     "artifact": "/home/runner/KonnichiwaDisplay-6/.serverless/hello-api.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/hello-api/dev/1732407407404-2024-11-24T00:16:47.404Z",
+    "artifactDirectoryName": "serverless/hello-api/dev/1732408949058-2024-11-24T00:42:29.058Z",
     "artifact": "hello-api.zip"
   }
 }

@@ -15,6 +15,14 @@ author = "agent"
 task = "workflow.run"
 args = "Next.js Dev Server"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Deploy Backend"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Build and Deploy Frontend"
+
 [[workflows.workflow]]
 name = "Next.js Dev Server"
 author = "agent"
@@ -29,6 +37,34 @@ task = "packager.installForAll"
 task = "shell.exec"
 args = "npx next dev"
 waitForPort = 3000
+
+[[workflows.workflow]]
+name = "Deploy Backend"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx serverless deploy"
+
+[[workflows.workflow]]
+name = "Build and Deploy Frontend"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx next build && aws s3 sync out/ s3://${self:service}-frontend-${self:provider.stage}"
 
 [deployment]
 run = ["sh", "-c", "npx next dev"]
